@@ -139,18 +139,18 @@ input[type="range"] {
   top: 0%;
   left: 0%;
   /*TODO: Change to HSL */
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  transition: all 0.5s ease-in-out;;
+  transition: all 0.5s ease-in-out;
   align-items: center;
   opacity: 0;
   pointer-events: none;
 }
 
-.copy-popup{
+.copy-popup {
   background: white;
   display: flex;
   flex-direction: column;
@@ -163,16 +163,16 @@ input[type="range"] {
   min-height: 30vh;
 }
 
-.copy-popup h4{
+.copy-popup h4 {
   font-size: 2rem;
   padding: 2rem;
 }
 
-.copy-container.active{
+.copy-container.active {
   opacity: 1;
   pointer-events: all;
 }
 
-.copy-popup.active{
+.copy-popup.active {
   transform: translateY(0rem);
 }
