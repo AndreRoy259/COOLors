@@ -197,7 +197,7 @@ input[type="range"] {
 }
 
 .close-library {
-    border-top-right-radius: 0rem;
+  border-top-right-radius: 0rem;
 }
 
 .library-popup {
@@ -243,9 +243,9 @@ input[type="range"] {
 }
 
 @media only screen and (max-width: 600px) {
-    .colors{
-        height: 2000px;
-        display: flex;
-        flex-direction: column;  
-    }
+  .colors {
+    height: 2000px;
+    display: flex;
+    flex-direction: column;
+  }
 }
