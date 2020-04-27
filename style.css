@@ -108,7 +108,8 @@ svg {
   height: 20vh;
 }
 
-.panel button, .submit-save {
+.panel button,
+.submit-save {
   font: 1.2rem;
   margin: 1rem;
   padding: 1rem 2rem;
@@ -200,8 +201,57 @@ input[type="range"] {
 }
 
 .close-save,
-.close-library{
+.close-library {
   /* TODO: Restyle those buttons */
   /* font-size: 1.5rem; */
-  /* padding: .5rem;  */
+  padding: 0.5rem;
+}
+
+.library-popup {
+  min-width: 40%;
+  padding: 1rem;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  max-height: 50%;
+}
+
+.custom-palette {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 2rem;
+}
+
+.small-preview {
+  display: flex;
+  flex: 1;
+}
+
+.custom-palette h4 {
+  flex: 1;
+}
+
+.small-preview div {
+  height: 5rem;
+  flex: 1;
+}
+
+.pick-palette-btn {
+  /* TODO: Restyle it so it looks like the others */
+  height: 5rem;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background: hsl(235, 35%, 20%);
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    .colors{
+        height: 2000px;
+        display: flex;
+        flex-direction: column;  
+    }
 }

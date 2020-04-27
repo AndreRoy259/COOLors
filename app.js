@@ -224,11 +224,16 @@ const submitSave = document.querySelector(".submit-save");
 const closeSave = document.querySelector(".close-save");
 const saveContainer = document.querySelector(".save-container");
 const saveInput = document.querySelector(".save-container input");
+const libraryContainer = document.querySelector(".library-container");
+const libraryBtn = document.querySelector(".library");
+const closeLibraryBtn = document.querySelector(".close-library");
 
 // Event listerners
 saveBtn.addEventListener("click", openPalette);
 closeSave.addEventListener("click", closePalette);
 submitSave.addEventListener("click", savePalette);
+libraryBtn.addEventListener("click", openLibrary);
+closeLibraryBtn.addEventListener("click", closeLibrary);
 
 // Functions
 function openPalette(e) {
@@ -250,18 +255,64 @@ function savePalette(e) {
     colors.push(hex.innerText);
   });
   // Generate object
-  let paletteNr = savedPalettes.length;
+  let paletteNr;
+  const paletteObjects = JSON.parse(localStorage.getItem("palettes"));
+  if (paletteObjects) {
+    paletteNr = paletteObjects.length;
+  } else {
+    paletteNr = savedPalettes.length;
+  }
   //? const paletteObj = { name: name, colors: colors, nr: paletteNr };
-  //? If the property and value name are the same... Here's a shortcut... 
+  //? If the property and value name are the same... Here's a shortcut...
   const paletteObj = { name, colors, nr: paletteNr };
   savedPalettes.push(paletteObj);
   // Save to local storage
   saveToLocal(paletteObj);
-  saveInput.value = '';
+  saveInput.value = "";
+
+  //TODO: Make a function with this code so it don't repeat itself in the getLocal()
+  // Generate the palette for the library
+  const palette = document.createElement("div");
+  palette.classList.add("custom-palette");
+  const title = document.createElement("h4");
+  title.innerText = paletteObj.name;
+  const preview = document.createElement("div");
+  preview.classList.add("small-preview");
+  paletteObj.colors.forEach((smallColor) => {
+    const smallDiv = document.createElement("div");
+    smallDiv.style.backgroundColor = smallColor;
+    preview.appendChild(smallDiv);
+  });
+  const paletteBtn = document.createElement("button");
+  paletteBtn.classList.add("pick-palette-btn");
+  paletteBtn.classList.add(paletteObj.nr);
+  paletteBtn.innerText = "Select";
+
+  // Attach event to the button
+  paletteBtn.addEventListener("click", (e) => {
+    closeLibrary();
+    const palleteIndex = e.target.classList[1];
+    initialColors = [];
+    savedPalettes[palleteIndex].colors.forEach((color, index) => {
+      initialColors.push(color);
+      colorDivs[index].style.backgroundColor = color;
+      const text = colorDivs[index].children[0];
+      checkTextContrast(color, text);
+      updateTextUI(index);
+    });
+    resetInputs();
+  });
+
+  // Append to library
+  palette.appendChild(title);
+  palette.appendChild(preview);
+  palette.appendChild(paletteBtn);
+  libraryContainer.children[0].appendChild(palette);
+  //TODO: End of the code to refactor
 }
 function saveToLocal(paletteObj) {
   let localPalettes;
-  if (localStorage.getItem('palettes') === null) {
+  if (localStorage.getItem("palettes") === null) {
     localPalettes = [];
   } else {
     localPalettes = JSON.parse(localStorage.getItem("palettes"));
@@ -269,6 +320,66 @@ function saveToLocal(paletteObj) {
   localPalettes.push(paletteObj);
   localStorage.setItem("palettes", JSON.stringify(localPalettes));
 }
+function openLibrary() {
+  const popup = libraryContainer.children[0];
+  libraryContainer.classList.add("active");
+  popup.classList.add("active");
+}
+function closeLibrary() {
+  const popup = libraryContainer.children[0];
+  libraryContainer.classList.remove("active");
+  popup.classList.remove("active");
+}
+function getLocal() {
+  if (localStorage.getItem("palettes") === null) {
+    localPalettes = [];
+  } else {
+    const paletteObjects = JSON.parse(localStorage.getItem("palettes"));
+    savedPalettes = [...paletteObjects];
+    paletteObjects.forEach((paletteObj) => {
+      //TODO: Make a function with this code so it don't repeat itself in the savePalette()
+      // Generate the palette for the library
+      const palette = document.createElement("div");
+      palette.classList.add("custom-palette");
+      const title = document.createElement("h4");
+      title.innerText = paletteObj.name;
+      const preview = document.createElement("div");
+      preview.classList.add("small-preview");
+      paletteObj.colors.forEach((smallColor) => {
+        const smallDiv = document.createElement("div");
+        smallDiv.style.backgroundColor = smallColor;
+        preview.appendChild(smallDiv);
+      });
+      const paletteBtn = document.createElement("button");
+      paletteBtn.classList.add("pick-palette-btn");
+      paletteBtn.classList.add(paletteObj.nr);
+      paletteBtn.innerText = "Select";
+
+      // Attach event to the button
+      paletteBtn.addEventListener("click", (e) => {
+        closeLibrary();
+        const palleteIndex = e.target.classList[1];
+        initialColors = [];
+        paletteObjects[palleteIndex].colors.forEach((color, index) => {
+          initialColors.push(color);
+          colorDivs[index].style.backgroundColor = color;
+          const text = colorDivs[index].children[0];
+          checkTextContrast(color, text);
+          updateTextUI(index);
+        });
+        resetInputs();
+      });
+
+      // Append to library
+      palette.appendChild(title);
+      palette.appendChild(preview);
+      palette.appendChild(paletteBtn);
+      libraryContainer.children[0].appendChild(palette);
+      //TODO: End of the code to refactor
+    });
+  }
+}
 
 //! Main App
+getLocal();
 randomColors();
