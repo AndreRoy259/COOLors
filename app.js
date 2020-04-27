@@ -71,9 +71,7 @@ function randomColors() {
     // Add the color to the background
     div.style.backgroundColor = randomColor;
     hexText.innerText = randomColor;
-
-    // TODO: Set Text to UpperCase
-    // hexText.innerText = hexText.innerText.toUpperCase();
+    hexText.innerText = hexText.innerText.toUpperCase();
 
     // Check for contrast
     checkTextContrast(randomColor, hexText);
@@ -152,6 +150,8 @@ function updateTextUI(index) {
   const textHex = activeDiv.querySelector("h2");
   const icons = activeDiv.querySelectorAll(".controls button");
   textHex.innerText = color.hex();
+  textHex.innerText = textHex.innerText.toUpperCase();
+
   // Check Contrast
   checkTextContrast(color, textHex);
   for (icon of icons) {

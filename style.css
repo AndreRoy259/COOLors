@@ -71,10 +71,7 @@ svg {
   top: 0;
   right: 0;
   padding: 0.5rem;
-  /* TODO: Change the Appearance of the X Buttons */
-  /* TODO: Also See save-close and library-close Further Down */
-  /* border-top-right-radius: 1rem; */
-  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
   border-bottom-left-radius: 1rem;
   border: none;
   background-color: #555;
@@ -110,7 +107,7 @@ svg {
 
 .panel button,
 .submit-save {
-  font: 1.2rem;
+  font-size: 1.2rem;
   margin: 1rem;
   padding: 1rem 2rem;
   background: hsl(235, 35%, 20%);
@@ -148,8 +145,7 @@ input[type="range"] {
   position: fixed;
   top: 0%;
   left: 0%;
-  /*TODO: Change to HSL */
-  background: rgba(0, 0, 0, 0.5);
+  background: hsla(0, 0%, 0%, 0.5);
   width: 100%;
   height: 100%;
   display: flex;
@@ -200,11 +196,8 @@ input[type="range"] {
   padding: 1rem;
 }
 
-.close-save,
 .close-library {
-  /* TODO: Restyle those buttons */
-  /* font-size: 1.5rem; */
-  padding: 0.5rem;
+    border-top-right-radius: 0rem;
 }
 
 .library-popup {
@@ -238,14 +231,15 @@ input[type="range"] {
 }
 
 .pick-palette-btn {
-  /* TODO: Restyle it so it looks like the others */
   height: 5rem;
-  border: none;
-  padding: 1rem;
-  cursor: pointer;
   font-size: 1.2rem;
+  margin: 1rem;
+  padding: 1rem 2rem;
   background: hsl(235, 35%, 20%);
+  border: none;
   color: white;
+  cursor: pointer;
+  border-radius: 1rem;
 }
 
 @media only screen and (max-width: 600px) {
